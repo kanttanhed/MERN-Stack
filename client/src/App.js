@@ -5,7 +5,7 @@ import "./App.css";
 function App() {
   const [foodName, setFoodName] = useState("");
   const [days, setdays] = useState(0);
-
+  const [newFoodName, setNewFoodName] = useState("");
   const [foodList, setFoodList] = useState([]);
 
 useEffect(() => {
@@ -21,6 +21,16 @@ useEffect(() => {
     });
   };
 
+  const updateFood = (id) => {
+    Axios.put("http://localhost:3002/update", {
+    id: id,
+    newFoodName: newFoodName,
+    });
+  };
+
+  const deleteFood = (id) => {
+    Axios.delete("http://localhost:3002/delete/"+id) 
+  };
 
   return (
     <div className="App">
@@ -48,6 +58,15 @@ useEffect(() => {
         <div key = {key} >
           <h1> {val.foodName}</h1>
           <h1> {val.daysSinceIAte}</h1>
+          <input 
+            type="text" 
+            placeholder="New Food Name..."
+            onChange={(event) => {
+              setNewFoodName(event.target.value);
+          }}
+        />
+          <button onClick={() => updateFood(val._id)}> Update </button>
+          <button onClick={() => deleteFood(val._id)}>Delete</button>
         </div>
         );
       })}
