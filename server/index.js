@@ -11,7 +11,8 @@ app.use(cors());
 mongoose.connect(
     "mongodb+srv://newuser:2525@crud.dwqyr.mongodb.net/food?retryWrites=true&w=majority", 
     {
-    userNewUrlParser:true,
+    useNewUrlParser:true,
+    useUnifiedTopology: true
     }
 );
 
